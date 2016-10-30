@@ -13,12 +13,45 @@
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap-theme.min.css' %}">
 
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+
     <!-- Bootstrap JS -->
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
+    <link rel="stylesheet" href="{% static 'css/common.min.css' %}">
 </head>
 <body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" calss="navbar-brand">every Diary</a>
+            </div>
 
+            <div class="collapse navbar-collapse" id="main-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{% url 'diary:diary_add' %}">Write</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="alert
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning
+                    {% elif message.level == DEFAULT_MESSAGE_LEVELS.DEBUG %}alert-danger
+                    {% endif %}" role="alert">{{ message }} </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
     <div class="content-container">
     {% block content %}
     {% endblock %}
