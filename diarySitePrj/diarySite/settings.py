@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 AUTH_USER_MODEL = 'member.DiaryUser'
 
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'diarySite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
