@@ -8,6 +8,6 @@ class Diary(models.Model):
     author = models.ForeignKey(AUTH_USER_MODEL)
     written_date = models.DateField()
 
-    def __init__(self):
+    def __str__(self):
         return self.title
 
