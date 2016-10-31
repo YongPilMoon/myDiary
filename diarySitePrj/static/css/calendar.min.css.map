@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "calendar.min.css",
+	"sources": [
+		"../sass/calendar.sass"
+	],
+	"mappings": "AAAA,AACK,KADA,CACH,EAAE,CAAC,CAAC,AAAC,CAGH,OAAO,CAAE,KAAM,CACf,KAAK,CAAE,IAAK,CAAG,AALnB,AACK,KADA,CACH,EAAE,CAAC,CAAC,AACD,MAAM,AAAC,CACN,gBAAgB,CAAE,MAAO,CAAG,AAHlC,AAMI,KANC,CAMH,EAAE,AAAA,YAAY,AAAC,CACb,KAAK,CAAE,IAAK,CAAG",
+	"names": []
+}
