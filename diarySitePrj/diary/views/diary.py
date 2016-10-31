@@ -1,5 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-
+from diary.forms import DiaryForm
 __all__ = [
     'diary_add',
     'diary_calendar',
@@ -7,10 +8,19 @@ __all__ = [
 
 
 def diary_add(request):
-    context = {
+    user = request.user
 
-    }
-    return render(request, 'diary/diary_add.html', context)
+    if request.method == 'POST':
+        form = DiaryForm(request.POST)
+
+        if form.is_valid():
+            diary = form.save(commit=False)
+            diary.author = user
+            diary.save()
+            return HttpResponse("diary detail")
+    else:
+        form = DiaryForm()
+        return render(request, 'diary/diary_add.html', {'form':form})
 
 
 def diary_calendar(request):
