@@ -63,7 +63,6 @@ Calendar.prototype.showMonth = function(y, m) {
         , lastDateOfMonth =  new Date(y, m+1, 0).getDate()
         // Last day of the previous month
         , lastDayOfLastMonth = m == 0 ? new Date(y-1, 11, 0).getDate() : new Date(y, m, 0).getDate();
-        console.log(lastDayOfLastMonth)
 
     var html = '<table class="table">';
 
@@ -79,51 +78,65 @@ Calendar.prototype.showMonth = function(y, m) {
 
     // Write the days
     var i=1;
+    var format_m;
+    var format_d;
+    var temp_m;
     do {
 
         var row = new Date(y, m, i).getDay();
 
         // If Sunday, start new row
-        if ( row == 0 ) {
+        if (row == 0) {
             html += '<tr>';
         }
         // If not Sunday but first day of the month
         // it will write the last days from the previous month
-        else if ( i == 1 ) {
+        else if (i == 1) {
             html += '<tr>';
-            var k = lastDayOfLastMonth - firstDayOfMonth+1;
-            for(var j=0; j < firstDayOfMonth; j++) {
+            var k = lastDayOfLastMonth - firstDayOfMonth + 1;
+            for (var j = 0; j < firstDayOfMonth; j++) {
                 html += '<td class="not-current">' + k + '</td>';
                 k++;
             }
         }
 
+
         // Write the current day in the loop
-        html += '<td>' +'<a href="#">' + i + '</a>' + '</td>';
+        temp_m = m + 1
+        if (temp_m < 10)
+            format_m = "0" + temp_m;
+        else
+            format_m = temp_m
+
+        if (i < 10)
+            format_d = "0" + i;
+        else
+            format_d = i
+
+        html += '<td>' + '<a href=' + y + '/' + format_m + '/' + format_d + '>' + i + '</a>' + '</td>';
 
         // If Saturday, closes the row
-        if ( row == 6 ) {
+        if (row == 6) {
             html += '</tr>';
         }
         // If not Saturday, but last day of the selected month
         // it will write the next few days from the next month
-        else if ( i == lastDateOfMonth ) {
-            var k=1;
-            for(row; row < 6; row++) {
+        else if (i == lastDateOfMonth) {
+            var k = 1;
+            for (row; row < 6; row++) {
                 html += '<td class="not-current">' + k + '</td>';
                 k++;
             }
         }
 
         i++;
-    }while(i <= lastDateOfMonth);
+    } while (i <= lastDateOfMonth);
 
     // Closes table
     html += '</table>';
 
     // Write HTML to the div
     document.getElementById(this.divId).innerHTML = html;
-    console.log(html)
 };
 
 // On Load of the window
