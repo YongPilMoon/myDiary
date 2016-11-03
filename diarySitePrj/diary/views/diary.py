@@ -1,14 +1,27 @@
+# python
 from datetime import datetime
+import calendar
+import pprint
+
+# django
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+
+# custom
 from diary.forms import DiaryForm
 from diary.models import Diary
+
 __all__ = [
     'diary_add',
-    'diary_calendar',
+    'month_calendar',
     'calendar_detail',
+    'index',
 ]
+
+
+def index(request):
+    return render(request, 'index.html', {})
 
 
 def diary_add(request):
@@ -27,11 +40,12 @@ def diary_add(request):
         return render(request, 'diary/diary_add.html', {'form': form})
 
 
-def diary_calendar(request):
+def month_calendar(request, year, month):
     context = {
 
     }
-    return render(request, 'diary/diary_calendar.html', context)
+    pprint.pprint(calendar.Calendar(calendar.SUNDAY).monthdays2calendar(2007, 1))
+    return render(request, 'diary/month_calendar.html', context)
 
 
 def calendar_detail(request, year, month, day):
@@ -43,4 +57,3 @@ def calendar_detail(request, year, month, day):
     else:
         messages.info(request, '일기를 작성해 주세요.')
         return redirect('diary:diary_add')
-
