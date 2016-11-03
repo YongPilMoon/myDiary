@@ -21,10 +21,10 @@ def diary_add(request):
             diary = form.save(commit=False)
             diary.author = user
             diary.save()
-            return HttpResponse("diary detail")
+            return redirect('diary:diary_calendars')
     else:
         form = DiaryForm()
-        return render(request, 'diary/diary_add.html', {'form':form})
+        return render(request, 'diary/diary_add.html', {'form': form})
 
 
 def diary_calendar(request):
@@ -35,7 +35,7 @@ def diary_calendar(request):
 
 
 def calendar_detail(request, year, month, day):
-    selected_date = datetime.strptime(year+month+day,'%Y%m%d').date()
+    selected_date = datetime.strptime(year+month+day, '%Y%m%d').date()
     diary_query = Diary.objects.filter(written_date=selected_date)
 
     if diary_query.exists():
@@ -43,3 +43,4 @@ def calendar_detail(request, year, month, day):
     else:
         messages.info(request, '일기를 작성해 주세요.')
         return redirect('diary:diary_add')
+

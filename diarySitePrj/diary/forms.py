@@ -11,5 +11,5 @@ class DiaryForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-control'}),
             'written_date': forms.SelectDateWidget(
             ),
-        }
+            }
 
