@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,6 +32,72 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 AUTH_USER_MODEL = 'member.DiaryUser'
 
+# 설정파일 폴더
+CONF_DIR = os.path.join(BASE_DIR, '.conf')
+
+# json설정파일의 내용 불러오기
+config_file = open(os.path.join(CONF_DIR, 'settings_debug.json'))
+config = json.loads(config_file.read())
+config_file.close()
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/diary/'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_FACEBOOK_KEY = config['facebook']['SOCIAL_AUTH_FACEBOOK_KEY']
+SOCIAL_AUTH_FACEBOOK_SECRET = config['facebook']['SOCIAL_AUTH_FACEBOOK_SECRET']
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '802699456993-3iob3pioeqa8poriifhuu45l8kiqvkbi.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'wTwjQg2OOHD17UmB6A0Y3cO7'
+
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+VERSATILEIMAGEFIELD_SETTINGS = {
+    # The amount of time, in seconds, that references to created images
+    # should be stored in the cache. Defaults to `2592000` (30 days)
+    'cache_length': 2592000,
+    # The name of the cache you'd like `django-versatileimagefield` to use.
+    # Defaults to 'versatileimagefield_cache'. If no cache exists with the name
+    # provided, the 'default' cache will be used instead.
+    'cache_name': 'versatileimagefield_cache',
+    # The save quality of modified JPEG images. More info here:
+    # https://pillow.readthedocs.io/en/latest/handbook/image-file-formats.html#jpeg
+    # Defaults to 70
+    'jpeg_resize_quality': 70,
+    # The name of the top-level folder within storage classes to save all
+    # sized images. Defaults to '__sized__'
+    'sized_directory_name': '__sized__',
+    # The name of the directory to save all filtered images within.
+    # Defaults to '__filtered__':
+    'filtered_directory_name': '__filtered__',
+    # The name of the directory to save placeholder images within.
+    # Defaults to '__placeholder__':
+    'placeholder_directory_name': '__placeholder__',
+    # Whether or not to create new images on-the-fly. Set this to `False` for
+    # speedy performance but don't forget to 'pre-warm' to ensure they're
+    # created and available at the appropriate URL.
+    'create_images_on_demand': True,
+    # A dot-notated python path string to a function that processes sized
+    # image keys. Typically used to md5-ify the 'image key' portion of the
+    # filename, giving each a uniform length.
+    # `django-versatileimagefield` ships with two post processors:
+    # 1. 'versatileimagefield.processors.md5' Returns a full length (32 char)
+    #    md5 hash of `image_key`.
+    # 2. 'versatileimagefield.processors.md5_16' Returns the first 16 chars
+    #    of the 32 character md5 hash of `image_key`.
+    # By default, image_keys are unprocessed. To write your own processor,
+    # just define a function (that can be imported from your project's
+    # python path) that takes a single argument, `image_key` and returns
+    # a string.
+    'image_key_post_processor': None,
+    # Whether to create progressive JPEGs. Read more about progressive JPEGs
+    # here: https://optimus.io/support/progressive-jpeg/
+    'progressive_jpeg': False
+}
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,6 +106,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
+    'versatileimagefield',
     'member',
     'diary',
 ]
@@ -66,13 +135,16 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'diarySite.wsgi.application'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
+WSGI_APPLICATION = 'diarySite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -103,7 +175,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
