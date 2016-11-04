@@ -10,18 +10,31 @@ from django.shortcuts import render, redirect
 
 # custom
 from diary.forms import DiaryForm
-from diary.models import Diary
+from diary.models import Diary, ExampleModel
 
 __all__ = [
     'diary_add',
     'month_calendar',
     'calendar_detail',
     'index',
+    'photo',
 ]
 
 
+def photo(request):
+    exampleModel = ExampleModel.objects.all()
+    context = {
+        "exampleModel":exampleModel
+    }
+    return render(request, 'diary/diary_photo.html', context)
+
+
 def index(request):
-    return render(request, 'index.html', {})
+    user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, 'index.html', context)
 
 
 def diary_add(request):
@@ -44,7 +57,8 @@ def month_calendar(request, year, month):
     context = {
 
     }
-    pprint.pprint(calendar.Calendar(calendar.SUNDAY).monthdays2calendar(2007, 1))
+
+    pprint.pprint(calendar.Calendar(calendar.SUNDAY).monthdays2calendar(year, month))
     return render(request, 'diary/month_calendar.html', context)
 
 

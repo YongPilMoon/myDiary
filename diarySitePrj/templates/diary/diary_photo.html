@@ -1,0 +1,8 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+photo
+ {% for photo in exampleModel %}
+    <img src="{{ photo.image.crop.200x200 }}" alt="">
+ {% endfor %}
+{% endblock %}

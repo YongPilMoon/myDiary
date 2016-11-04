@@ -1,5 +1,6 @@
 from django.db import models
 from diarySite.settings import AUTH_USER_MODEL
+from versatileimagefield.fields import VersatileImageField
 
 
 class Diary(models.Model):
@@ -11,3 +12,9 @@ class Diary(models.Model):
     def __str__(self):
         return self.title
 
+
+class ExampleModel(models.Model):
+    image = VersatileImageField(
+        'Image',
+        upload_to='photo/'
+    )
