@@ -54,11 +54,16 @@ def diary_add(request):
 
 
 def month_calendar(request, year, month):
+    year = int(year)
+    month = int(month)
+    monthdays = calendar.Calendar(calendar.SUNDAY).monthdays2calendar(year, month)
     context = {
-
+        'monthdays': monthdays,
+        'year': year,
+        'month': month,
+        'days': ('일', '월', '화', '수', '목', '금', '토',)
     }
 
-    pprint.pprint(calendar.Calendar(calendar.SUNDAY).monthdays2calendar(year, month))
     return render(request, 'diary/month_calendar.html', context)
 
 
