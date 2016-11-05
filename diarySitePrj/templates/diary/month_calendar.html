@@ -1,0 +1,25 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+    <table class="col-xs-offset-1 col-xs-10 custom_table">
+    <tr>
+        <th colspan="10">{{ month }}<small class=year>{{ year }}</small></th>
+    </tr>
+    <tr>
+        {% for day in days %}
+            <td class="day">{{ day }}</td>
+        {% endfor %}
+    </tr>
+    {% for week in monthdays %}
+     <tr>
+        {% for date in week %}
+            {% if date.0 != 0 %}
+            <td class=date-link id="{{year}}-{{date.0}}" onClick="location.href='#'">{{ date.0 }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+        {% endfor %}
+     </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
