@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import json
+from datetime import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,7 +41,8 @@ config_file = open(os.path.join(CONF_DIR, 'settings_debug.json'))
 config = json.loads(config_file.read())
 config_file.close()
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/diary/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/diary/calendar/month/'\
+                                 + str(datetime.today().year) + '/{:02d}'.format(datetime.today().month)
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_FACEBOOK_KEY = config['facebook']['SOCIAL_AUTH_FACEBOOK_KEY']
