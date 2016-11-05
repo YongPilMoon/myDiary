@@ -3,7 +3,7 @@
 {% block content %}
     <table class="col-xs-offset-1 col-xs-10 custom_table">
     <tr>
-        <th colspan="10">{{ month }}<small class=year>{{ year }}</small></th>
+        <th colspan="10">{{ month.1 }}<small class=year>{{ year }}</small></th>
     </tr>
     <tr>
         {% for day in days %}
@@ -13,8 +13,12 @@
     {% for week in monthdays %}
      <tr>
         {% for date in week %}
-            {% if date.0 != 0 %}
-            <td class=date-link id="{{year}}-{{date.0}}" onClick="location.href='#'">{{ date.0 }}</td>
+            {% if date.1 != 0 %}
+                <td class="date-link">
+                    <a href="{% url 'diary:diary_detail' year=year month=month.0 day=date.0 %}">
+                        <div class="link-div">{{ date.1 }}</div>
+                    </a>
+                </td>
             {% else %}
             <td></td>
             {% endif %}

@@ -15,7 +15,7 @@ from diary.models import Diary, ExampleModel
 __all__ = [
     'diary_add',
     'month_calendar',
-    'calendar_detail',
+    'diary_detail',
     'index',
     'photo',
 ]
@@ -56,23 +56,27 @@ def diary_add(request):
 def month_calendar(request, year, month):
     year = int(year)
     month = int(month)
-    monthdays = calendar.Calendar(calendar.SUNDAY).monthdays2calendar(year, month)
+    monthdays = calendar.Calendar(calendar.SUNDAY).monthdayscalendar(year, month)
+    monthdays = [[('0'+str(day), day) if day < 10 else (str(day),day) for day in week] for week in monthdays]
+    print(monthdays)
     context = {
         'monthdays': monthdays,
         'year': year,
-        'month': month,
+        'month': ('{:02d}'.format(month),month),
         'days': ('일', '월', '화', '수', '목', '금', '토',)
     }
 
     return render(request, 'diary/month_calendar.html', context)
 
 
-def calendar_detail(request, year, month, day):
+def diary_detail(request, year, month, day):
     selected_date = datetime.strptime(year+month+day, '%Y%m%d').date()
     diary_query = Diary.objects.filter(written_date=selected_date)
-
+    context = {
+        'diary_query': diary_query,
+    }
     if diary_query.exists():
-        return HttpResponse("calendar detail")
+        return render(request, 'diary/diary_detail.html', context)
     else:
         messages.info(request, '일기를 작성해 주세요.')
         return redirect('diary:diary_add')
