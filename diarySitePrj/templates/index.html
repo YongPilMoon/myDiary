@@ -1,4 +1,7 @@
 {% extends 'common/base.html' %}
 {% block content %}
 <a href="{% url 'diary:month_calendar' year='2011' month='04' %}">go get them</a>
+<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+<a href="{% url 'auth:logout' %}">Logout</a>
+<a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
 {% endblock %}
