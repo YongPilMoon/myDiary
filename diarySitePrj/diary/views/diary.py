@@ -56,14 +56,15 @@ def diary_add(request):
 def month_calendar(request, year, month):
     year = int(year)
     month = int(month)
+    this_month_diary = Diary.objects.filter(diary_date__year=year, diary_date__month=month)
     monthdays = calendar.Calendar(calendar.SUNDAY).monthdayscalendar(year, month)
-    monthdays = [[('0'+str(day), day) if day < 10 else (str(day),day) for day in week] for week in monthdays]
-    print(monthdays)
+    monthdays = [[('0'+str(day), day) if day < 10 else (str(day), day) for day in week] for week in monthdays]
     context = {
         'monthdays': monthdays,
         'year': year,
-        'month': ('{:02d}'.format(month),month),
-        'days': ('일', '월', '화', '수', '목', '금', '토',)
+        'month': ('{:02d}'.format(month), month),
+        'days': ('일', '월', '화', '수', '목', '금', '토',),
+        'this_month_diary': this_month_diary,
     }
 
     return render(request, 'diary/month_calendar.html', context)
@@ -71,7 +72,7 @@ def month_calendar(request, year, month):
 
 def diary_detail(request, year, month, day):
     selected_date = datetime.strptime(year+month+day, '%Y%m%d').date()
-    diary_query = Diary.objects.filter(written_date=selected_date)
+    diary_query = Diary.objects.filter(diary_date=selected_date)
     context = {
         'diary_query': diary_query,
     }

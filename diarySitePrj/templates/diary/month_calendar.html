@@ -16,7 +16,7 @@
             {% if date.1 != 0 %}
                 <td class="date-link">
                     <a href="{% url 'diary:diary_detail' year=year month=month.0 day=date.0 %}">
-                        <div class="link-div">{{ date.1 }}</div>
+                        <div id=date{{date.1}} class="link-div">{{ date.1 }}</div>
                     </a>
                 </td>
             {% else %}
@@ -26,4 +26,9 @@
      </tr>
     {% endfor %}
     </table>
+
+    {% for diary in this_month_diary %}
+        <script>diary_check('{{ diary.diary_date.day}}')</script>
+    {% endfor %}
+
 {% endblock %}
