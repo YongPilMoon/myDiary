@@ -2,10 +2,8 @@
 from datetime import datetime
 import calendar
 
-
 # django
 from django.contrib import messages
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # custom
@@ -16,7 +14,6 @@ __all__ = [
     'diary_add',
     'month_calendar',
     'diary_detail',
-    'index',
     'photo',
 ]
 
@@ -24,17 +21,9 @@ __all__ = [
 def photo(request):
     exampleModel = ExampleModel.objects.all()
     context = {
-        "exampleModel":exampleModel
+        "exampleModel": exampleModel
     }
     return render(request, 'diary/diary_photo.html', context)
-
-
-def index(request):
-    user = request.user
-    context = {
-        'user': user,
-    }
-    return render(request, 'index.html', context)
 
 
 def diary_add(request, year, month, day):

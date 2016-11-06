@@ -41,8 +41,7 @@ config_file = open(os.path.join(CONF_DIR, 'settings_debug.json'))
 config = json.loads(config_file.read())
 config_file.close()
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/diary/calendar/month/'\
-                                 + str(datetime.today().year) + '/{:02d}'.format(datetime.today().month)
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/diary/calendar/month/'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_FACEBOOK_KEY = config['facebook']['SOCIAL_AUTH_FACEBOOK_KEY']
