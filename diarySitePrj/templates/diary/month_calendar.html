@@ -3,7 +3,9 @@
 {% block content %}
     <table class="col-xs-offset-1 col-xs-10 custom_table">
     <tr>
-        <th colspan="10">{{ month.1 }}<small class=year>{{ year }}</small></th>
+        <td><a href="{% url 'diary:month_calendar' %}?pre_calendar={{pre_calendar}}">pre</a></td>
+        <th colspan="5">{{ month.1 }}<small class=year>{{ year }}</small></th>
+        <td><a href="{% url 'diary:month_calendar' %}?next_calendar={{next_calendar}}">next</a></td>
     </tr>
     <tr>
         {% for day in days %}
