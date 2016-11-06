@@ -43,6 +43,9 @@
                     {% if user %}
                     <li>{{ user.username }}</li>
                     {% endif %}
+                    <li>
+                        <a href="{% url 'diary:month_calendar' %}">Calendar</a>
+                    </li>
                 </ul>
             </div>
         </div>

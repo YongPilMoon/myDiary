@@ -59,9 +59,11 @@ def diary_add(request, year, month, day):
         return render(request, 'diary/diary_add.html', context)
 
 
-def month_calendar(request, year, month):
-    year = int(year)
-    month = int(month)
+def month_calendar(request):
+    today = datetime.today()
+    year = today.year
+    month = today.month
+
     this_month_diary = Diary.objects.filter(diary_date__year=year, diary_date__month=month)
     monthdays = calendar.Calendar(calendar.SUNDAY).monthdayscalendar(year, month)
     monthdays = [[('0'+str(day), day) if day < 10 else (str(day), day) for day in week] for week in monthdays]
