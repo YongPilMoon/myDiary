@@ -37,20 +37,26 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def diary_add(request):
+def diary_add(request, year, month, day):
     user = request.user
-
+    diary_date = datetime.strptime(year+'-'+month+'-'+day, "%Y-%m-%d").date()
     if request.method == 'POST':
         form = DiaryForm(request.POST)
-
         if form.is_valid():
             diary = form.save(commit=False)
             diary.author = user
+            diary.diary_date = diary_date
             diary.save()
-            return redirect('diary:diary_calendars')
+            return redirect('diary:diary_detail', year=year, month=month, day=day)
     else:
         form = DiaryForm()
-        return render(request, 'diary/diary_add.html', {'form': form})
+        context = {
+            'form': form,
+            'year': year,
+            'month': month,
+            'day': day
+        }
+        return render(request, 'diary/diary_add.html', context)
 
 
 def month_calendar(request, year, month):
@@ -80,4 +86,4 @@ def diary_detail(request, year, month, day):
         return render(request, 'diary/diary_detail.html', context)
     else:
         messages.info(request, '일기를 작성해 주세요.')
-        return redirect('diary:diary_add')
+        return redirect('diary:diary_add', year=year, month=month, day=day)

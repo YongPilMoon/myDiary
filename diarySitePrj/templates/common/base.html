@@ -28,6 +28,8 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/common.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/month_calendar.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/diary_add.min.css' %}">
+
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -38,9 +40,6 @@
 
             <div class="collapse navbar-collapse" id="main-navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="{% url 'diary:diary_add' %}">Write</a>
-                    </li>
                     {% if user %}
                     <li>{{ user.username }}</li>
                     {% endif %}
@@ -63,7 +62,7 @@
         </div>
         {% endif %}
     </div>
-    <div class="content-container">
+    <div class="container">
     {% block content %}
     {% endblock %}
     </div>
