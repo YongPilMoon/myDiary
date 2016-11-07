@@ -42,13 +42,12 @@ config = json.loads(config_file.read())
 config_file.close()
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/diary/calendar/month/'
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_FACEBOOK_KEY = config['facebook']['SOCIAL_AUTH_FACEBOOK_KEY']
 SOCIAL_AUTH_FACEBOOK_SECRET = config['facebook']['SOCIAL_AUTH_FACEBOOK_SECRET']
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '802699456993-3iob3pioeqa8poriifhuu45l8kiqvkbi.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'wTwjQg2OOHD17UmB6A0Y3cO7'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config['google']['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config['google']['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
 
 
 # Media files
@@ -143,7 +142,7 @@ TEMPLATES = [
     },
 ]
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+# SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 WSGI_APPLICATION = 'diarySite.wsgi.application'
 
