@@ -30,16 +30,22 @@
 #### 기능 구현
 
 - calendar 구현
-	- [x] 기본 javascript를 활용한 calendar구현
+	 - [x] 기본 calendar class를 활용한 calendar구현
+		- main page에 달력 그려주기
 	- [x] 기본 일기 작성 구현
-	- [ ] calendar에 일기 작성된 날짜 표시
+		- 달력 날짜 클릭시 장성 form으로 이동
+	- [x] calendar에 일기 작성된 날짜 표시
+		- 일기를 작성하면 해당 날짜에 초록색을 표시
 	
 - 로그인 구현
-	- [ ] 일반로그인
-	- [ ] 페이스북 로그인
-
+	- [x] 일반로그인	
+	- [x] 페이스북 로그인
+	- [x] 구글 로그인
+		- social auth library 이용
 - 회원가입
-	
+
+- 비밀번호 찾기
+	- 가입 email로 hash된 token을 포함한 link를 보내줌			
 - 일기 공유 기능
 
 - 일기 암호화
