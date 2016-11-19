@@ -1,29 +1,18 @@
 # python
-from datetime import datetime
 import calendar
-
-# django
+from datetime import datetime
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
-# custom
 from diary.forms import DiaryForm
-from diary.models import Diary, ExampleModel
+from diary.models import Diary
 
 __all__ = [
     'diary_add',
     'month_calendar',
     'diary_detail',
-    'photo',
+
 ]
-
-
-def photo(request):
-    exampleModel = ExampleModel.objects.all()
-    context = {
-        "exampleModel": exampleModel
-    }
-    return render(request, 'diary/diary_photo.html', context)
 
 
 def diary_add(request, year, month, day):
