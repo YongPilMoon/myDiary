@@ -4,7 +4,7 @@
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="panel-title">Sign In</div>
-            <div class="custom-forgot-password"><a href="#">Forgot password?</a></div>
+            <div class="custom-forgot-password"><a href="{% url 'member:reset_psw' %}">Forgot password?</a></div>
         </div>
         <div class="panel-body custom-panel-body">
             <form id="loginform" action="" method="POST" role="form">{% csrf_token %}

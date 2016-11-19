@@ -8,5 +8,7 @@ class DiaryUserManager(UserManager):
 
 class DiaryUser(AbstractUser):
 
+    objects = DiaryUserManager()
+
     def __str__(self):
         return self.username
