@@ -1,4 +1,7 @@
+static_root/
+.sass-cache/
 #DB file
+static_root/
 *.sqlite3
 .idea/
 media/
