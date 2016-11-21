@@ -47,7 +47,7 @@ class DiaryUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['nickname']
 
     def __str__(self):
-        return self.username
+        return self.email
 
     def get_full_name(self):
         return self.nickname

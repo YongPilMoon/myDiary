@@ -1,31 +1,30 @@
-from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate as auth_authenticate
 from django.contrib.auth import login as auth_login
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+
+from member.form import LoginForm
 
 __all__ = [
-    'login',
+    'LoginView',
 ]
 
 
-def login(request):
-    if request.method == 'POST':
-        try:
-            username = request.POST['username']
-            password = request.POST['password']
-        except KeyError:
-            messages.debug(request, 'username 또는 password를 확인해주세요')
-            return redirect('member:login')
-        user = auth_authenticate(
-            username=username,
-            password=password
-        )
+class LoginView(FormView):
+    template_name = 'member/login.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('diary:month_calendar')
+
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password']
+
+        user = auth_authenticate(email=email, password=password)
+
         if user is not None:
-            auth_login(request, user)
-            messages.success(request, '로그인에 성공하였습니다.')
-            return redirect('diary:month_calendar')
+            auth_login(self.request, user)
         else:
-            messages.error(request, '로그인에 실패하였습니다.')
-            return render(request, 'member/login.html', {})
-    else:
-        return render(request, 'member/login.html', {})
+            return HttpResponse('아이디와 비밀번호를 확인해주세요')
+
+        return super().form_valid(form)

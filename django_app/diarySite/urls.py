@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^diary/', include('diary.urls', namespace='diary')),
     url(r'^admin/', admin.site.urls),
     url(r'^member/', include('member.urls', namespace='member')),
-    url(r'^index/$', TemplateView.as_view(template_name='index.html'), name='index')
+    url(r'^index/$', TemplateView.as_view(template_name='index.html'), name='index'),
 ]
 
 if settings.DEBUG:

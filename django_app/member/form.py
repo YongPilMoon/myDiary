@@ -28,3 +28,18 @@ class SetPasswordForm(forms.Form):
                     code='password_mismatch',
                     )
         return password2
+
+
+class LoginForm(forms.Form):
+    email = forms.CharField(
+        label=(),
+        max_length=254,
+        widget=forms.EmailInput(
+            attrs={'class': 'login-input', 'placeholder': '이메일'}
+        ))
+
+    password = forms.CharField(
+        label=(),
+        widget=forms.PasswordInput(
+            attrs={'class': 'login-input', 'placeholder': '비밀번호'}
+        ))
