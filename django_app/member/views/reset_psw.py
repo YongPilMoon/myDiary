@@ -11,7 +11,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.generic import FormView
 
 from diarySite.settings import DEFAULT_FROM_EMAIL
-from member.form import PasswordResetRequestForm, SetPasswordForm
+from member.forms import PasswordResetRequestForm, SetPasswordForm
 from member.models import DiaryUser
 
 __all__ = [
