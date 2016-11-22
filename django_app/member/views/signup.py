@@ -9,7 +9,7 @@ __all__ = [
 
 
 class SignupView(FormView):
-    template_name = 'member/login.html'
+    template_name = 'member/signup.html'
     form_class = SignupModelForm
     success_url = reverse_lazy('diary:month_calendar')
 
